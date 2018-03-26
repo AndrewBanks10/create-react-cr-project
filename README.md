@@ -1,4 +1,21 @@
+
 # create-react-cr-project with vscode, perhaps the best environment for developing with react. 
+
+Create-react-cr-project (CRPCR) is an optimal UI-based vscode-react-redux development/auto test/production environment. It supports all the modern webpack features out of the box and significantly simplifies the task of implementing a react-redux solution, as well as reducing the amount of code that must be written.
+
+More specifically, the UI program configuration function of CRPCR automatically builds a valid react-redux program that contains all necessary library imports and other structures and then constructs the vscode/webpack production and HMR development environments for the program. In addition, a mocha and jsdom test environment is also automatically constructed that can be run and debugged from within vscode. 
+
+The UI component configuration function of CRPCR builds valid react MVC components with all imports and component scaffolding in place. You then only need to define the component’s state variables, service functions, possible component initialization and finally the associated react stateless JSX components and that is it.
+
+So in general under CRPCR, to implement a react-redux MVC component, you only need to:
+1. Call the UI component configuration feature from vscode to create a MVC react component's model, view and controller files with all the necessary component scaffolding in place. You can also optionally request to have the config program build automated test file scaffolding for the component.
+2. Define the component's redux state variables and initial values in the controller file's state variable section.
+3. Define the UI service functions in the controller file's UI service function section.
+4. If needed, define your component's business code in the model file.
+5. Define a react stateless JSX component in the view file. The UI service functions and state variables are automatically injected into the props of the component.
+
+Everything else is done automatically for you such as mapStateToProps, mapDispatchToProps, reducers, action creators, connect, import statements, HMR, builds, etc. In short, implementing a react/redux solution with CRPCR is almost a trivial exercise. See the extensive list below of features provided by CRPCR.
+
 [![js-standard-style](https://cdn.rawgit.com/standard/standard/master/badge.svg)](http://standardjs.com) 
 
 (**Please note, create-react-cr-project is only compatible with node 8.1.3 or higher.**)
@@ -28,7 +45,7 @@ The installation will take a few minutes. Once npm install has been run for you,
 * Clean separation between business logic and react components. No entangling program state and business code with the UI. Allows react components to be pure UI components. This way when react becomes obsolute, you simply take it out and install a new UI without having to rewrite any program state code or business code.
 * The ability to build independent react web components with the react UI part of the component being free of business logic.
 * Support for the react router and redux store synchronization with your routes such that any route component will retain its redux store values given route changes and/or browser forward or back movements.
-* React loadable support
+* React loadable support (code splitting).
 * React/enzyme auto test environment with vscode debugging.
 * Dll library support for debugging for much faster debug compilation.
 * Dll library support for production. Users do not have to reload react code for example, each time they visit your site. Ideally, they need only reload your code when it changes.
