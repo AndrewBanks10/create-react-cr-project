@@ -56,6 +56,7 @@ The installation will take a few minutes. Once npm install has been run for you,
 * Supports progressive web apps for production. You can opt out of this.
 * Supports material-ui react components.
 * Supports development and production proxies so that you can proxy REST requests to your production server or some stub server such as the json-server.
+* Add your own javacript code to the UI create component function to create your own custom components.
 
 ## Visual Studio Code
 
