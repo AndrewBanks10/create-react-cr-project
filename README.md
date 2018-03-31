@@ -226,6 +226,28 @@ export const uiServiceFunctions = {
   }
 }
 ```
+
+### Defining Your MVC Component's React UI
+Except for special cases, your react component should be a dumb react stateless functional component. So, CRPCR creates the scaffolding for such a component in component name/view.jsx. All of your state defined in the controller under defaultState and all of your UI service functions listed in the controller under uiServiceFunctions are automatically made available in the props so all you need to do is list the applicable keys that you require for UI presentation.
+
+As consistent with MVC, the view is only responsible for UI presentation and nothing more. Hence, you should not write any javascript in the react component except for the facilitation of UI presentation. So, there should be no state nor business code in the view file.
+
+The logic of MVC dictates a separatiom of concerns for UI features since it is assumed that the UI will change in the future and certainly the javascript world proves this to be true. So, if you restrict your view file to be pure UI presentation then any future UI changes only requires you to rewrite UI presentation code. If on the other hand you tangle up business code and/or state with the UI then UI changes in the future requires you to trash most of your code causing a complete program rewrite.
+
+All code in the view file is HMR compatable.  
+
+So, open the file component name/view.js. Below is an example of a MVC react UI component in its created state.
+```javascript
+import React from 'react'
+
+const Counter = (/* { sampleKey1, sampleFunction1 } */) =>
+  <div>
+    TODO: Define your component.
+  </div>
+
+export default Counter
+```
+
 ### How to perform controller initialization that requires partitionState, getState or setState.
 In the component controller file, add a function that performs the initialization code. See below for an example.
 ```javascript
