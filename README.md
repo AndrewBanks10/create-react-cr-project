@@ -1,5 +1,5 @@
 
-# create-react-cr-project with vscode, perhaps the best environment for developing with react. 
+# Create-react-cr-project with vscode is the best environment for developing with react. 
 
 Create-react-cr-project (CRPCR) is an optimal UI-based vscode-react-redux development/auto test/production environment. It supports all the modern webpack features out of the box and significantly simplifies the task of implementing a react-redux solution, as well as reducing the amount of code that must be written.
 
@@ -124,8 +124,45 @@ MIT
 
 # Documentation
 
+### Defining a MVC Component
+1. Open the project in vscode and then open the vscode task list. 
+2. Select the task 'Run Project Configuration'. You may also do it from the command line as npm run config.
+3. Click 'CREATE REACT COMPONENT' and the create react component form will be displayed. Type in the component name in the React component name field and select from the various options and then click 'CREATE COMPONENT' at the top right. Once the component is created click 'EXIT' at the top right and then click the 'EXIT' button at the home screen to properly perform exit cleanup.
+
+### MVC Component Redux Store Partition
+When a CRPCR MVC component is initialized, CRPCR creates a key for the component in the redux store as the camel case of the component name concatenated with 'Partition'. Hence, the state for the component Counter is located in the redux store under the key 'counterPartition'. This methodology prevents variable name collisions and also implements a separation of concerns for your component's state.
+
+### Defining Your MVC Component's State
+You are not forced to hassle with action creators and reducers with CRPCR, so all you need to do is place your state variables with their initializers in the object defaultState which is located in the MVC controller file. Every variable listed in defaultState will automatically be made available in the props of the UI component with no actions required on your part other than listing the variables. So, you also do not need to call a redux connect function nor do you need to write a mapStateToProps function. See further below if you only want to include a subset of your defaultState variables in the component props.
+
+Note that defining state variables is fully compatabile with HMR. Therefore, while in the debugger you may add new variables and their initializers and after a save, these new variables will be available in the props of the UI component. Therefore, a restart is not required in this case.  However, changing an initial value does require a restart.
+
+So, open the file component name/controller.js and locate the object defaultState. Below is an example.
+```javascript
+export const defaultState = {
+  // Place your component state here
+  data: [],
+  counter: 0
+}
+```
+
+### Defining Your MVC Component's UI Functions
+The UI functions for your component's UI features are defined in the controller object uiServiceFunctions. Any function you define in this object is automatically made available in the props of the UI component.
+
+Note that defining and changing UI functions is fully compatabile with HMR. Therefore, while in the debugger you may add or change UI functions and after a save, these changes become effective for your program without requiring a restart.
+
+So, open the file component name/controller.js and locate the object uiServiceFunctions. Below is an example. See below on how to access and change your state variables in defaultState from your UI service functions. 
+```javascript
+export const uiServiceFunctions = {
+  // Place your UI service functions here
+  increment: () => {
+  },
+  pushData: (e) => {
+  }
+}
+```
 ### Basics Operations Available to the Controller
-The generated MVC react component makes available the basic functions to manipulate the redux store partition associated with the component in the file index.js or index.ts. So, you can use the below in the controller to gain access to all of these functions. 
+The generated MVC react component makes available the basic functions to manipulate the redux store partition associated with the component in the file index.js or index.ts. So, you can use the below in the controller to gain access to all of these functions. Note that each MVC component gets their own redux store partition separate from other components.
 ```javascript
 import { getState, setState, partitionState, subscribe } from './'
 ```
@@ -152,6 +189,43 @@ Also, causality-redux is an extension to redux so you still have access to all t
 ```javascript
 const state = causalityRedux.store.getState()
 ```
+### How to Access and Change State in a React MVC Component
+There are two ways to access a component's state, getState and partitionState. There are two ways to change a component's state, setState and partitionState. The below gives examples.
+```javascript
+// Sample controller file.
+
+export const defaultState = {
+  data: [],
+  counter: 0
+}
+
+// The below demonstrates all the methods available to access and update partition state fields listed in the defaultState object.
+export const uiServiceFunctions = {
+  increment: () => {
+    // Updates counter in the redux store partition.
+    partitionState.counter++
+    // Get the entire state object for this component
+    let x = getState()
+    // Get the value of counter from getState
+    let c = getState().counter
+    // Get the value of counter from partitionState
+    c = partitionState.counter
+    // update counter with setState
+    setState({counter: c + 1})
+    // update counter with partitionState
+    partitionState.counter = c + 1
+  },
+  pushData: (e) => {
+    // partitionState returns a shallow copy of the component's state object field such as 'data' below.
+    let arr = partitionState.data
+    arr.push(e)
+    // To change an object in the state object, use partitionState.
+    partitionState.data = arr
+    // Note that the below does not work. partitionState.data returns a shallow copy of the object at the key 'data'. So the push occurs on that local copy and not the redux state object.
+    partitionState.data.push(e)
+  }
+}
+```
 ### How to perform controller initialization that requires partitionState, getState or setState.
 In the component controller file, add a function that performs the initialization code. See below for an example.
 ```javascript
@@ -177,9 +251,8 @@ export default wrappedComponents.CommentBox
 // Perform controller initialization here that needs partitionState, setState or getState.
 initController()
 ```
-
 ### How to Change State in an MVC Component from an External Module
-If you need to change component's state based on some changes that happen elsewhere in the app, define an exported function in the target Component as below. This may be needed for example as data comes in from a webSocket. It is recommended that only the owner of the state partition performs the actual changes on that component's state. 
+If you need to change a component's state based on some changes that happen elsewhere in the app, define an exported function in the target Component as below. This may be needed for example as data comes in from a webSocket. It is recommended that only the owner of the state partition performs the actual changes on that component's state. 
 ```javascript
 export const externalServiceFunctions = {
   get counter () {
