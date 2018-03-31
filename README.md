@@ -146,12 +146,12 @@ export const defaultState = {
 }
 ```
 
-### Defining Your MVC Component's UI Functions
-The UI functions for your component's UI features are defined in the controller object uiServiceFunctions. Any function you define in this object is automatically made available in the props of the UI component.
+### Defining Your MVC Component's UI Service Functions
+The UI service functions for your component's UI features are defined in the controller object uiServiceFunctions. Any function you define in this object is automatically made available in the props of the UI component.
 
-Note that defining and changing UI functions is fully compatabile with HMR. Therefore, while in the debugger you may add or change UI functions and after a save, these changes become effective for your program without requiring a restart.
+Note that defining and changing UI service functions is fully compatabile with HMR. Therefore, while in the debugger you may add or change these functions and after a save, the changes become effective for your program without requiring a restart.
 
-So, open the file component name/controller.js and locate the object uiServiceFunctions. Below is an example. See below on how to access and change your state variables in defaultState from your UI service functions. 
+So, open the file component name/controller.js and locate the object uiServiceFunctions. Below is an example. See further below on how to access and change your state variables in defaultState from your UI service functions. 
 ```javascript
 export const uiServiceFunctions = {
   // Place your UI service functions here
@@ -190,7 +190,7 @@ Also, causality-redux is an extension to redux so you still have access to all t
 const state = causalityRedux.store.getState()
 ```
 ### How to Access and Change State in a React MVC Component
-There are two ways to access a component's state, getState and partitionState. There are two ways to change a component's state, setState and partitionState. The below gives examples.
+There are two ways to access a component's redux state, getState and partitionState. There are two ways to change a component's redux state, setState and partitionState. The below gives examples.
 ```javascript
 // Sample controller file.
 
