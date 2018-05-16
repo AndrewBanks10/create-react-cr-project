@@ -24,7 +24,7 @@ The installation will take a few minutes. Once npm install has been run for you,
 8. 
 ## Known Issues
 1. The react reason vscode extension is supposed to automatically transpile .re files after saving them. However, at times it does not especially with new files. So, for this case, pull up the task list and select `Run bsb` to manutally run the bucklescript transpiler. 
-2. The bucklescript transpiler does not currently produce source maps so you have to set breakpoints in the transp[iled code rather than the actual react reason source code.
+2. The bucklescript transpiler does not currently produce source maps so you have to set breakpoints in the transpiled code rather than the actual react reason source code.
 
 ## Updating the IDE
 
