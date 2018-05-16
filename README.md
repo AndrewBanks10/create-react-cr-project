@@ -1,22 +1,13 @@
 
-# Create-react-cr-project with vscode is the best environment for developing with react. 
+# Create-react-cr-project with vscode is the best environment for developing with react.
+Create-react-cr-project (CRPCR) is an optimal UI-based vscode-react development/auto test/production environment. It supports all the modern webpack features out of the box and significantly simplifies the task of implementing a react solution, as well as reducing the amount of code that must be written.
 
-Create-react-cr-project (CRPCR) is an optimal UI-based vscode-react-redux development/auto test/production environment. It supports all the modern webpack features out of the box and significantly simplifies the task of implementing a react-redux solution, as well as reducing the amount of code that must be written.
-
-More specifically, the UI program configuration function of CRPCR automatically builds a valid react-redux program that contains all necessary library imports and other structures and then constructs the vscode/webpack production and HMR development environments for the program. In addition, a mocha and jsdom test environment is also automatically constructed that can be run and debugged from within vscode. 
-
-The UI component configuration function of CRPCR builds valid react MVC components with all imports and component scaffolding in place. You then only need to define the component’s state variables, service functions, possible component initialization and finally the associated react stateless JSX components and that is it.
-
-So in general under CRPCR, to implement a react-redux MVC component, you only need to:
-1. Call the UI component configuration feature from vscode to create a MVC react component's model, view and controller files with all the necessary component scaffolding in place. You can also optionally request to have the config program build automated test file scaffolding for the component.
-2. Define the component's redux state variables and initial values in the controller file's state variable section.
-3. Define the UI service functions in the controller file's UI service function section.
-4. If needed, define your component's business code in the model file.
-5. Define a react stateless JSX component in the view file. The UI service functions and state variables are automatically injected into the props of the component.
-
-Everything else is done automatically for you such as mapStateToProps, mapDispatchToProps, reducers, action creators, connect, import statements, HMR, builds, etc. In short, implementing a react/redux solution with CRPCR is almost a trivial exercise. See the extensive list below of features provided by CRPCR.
-
-[![js-standard-style](https://cdn.rawgit.com/standard/standard/master/badge.svg)](http://standardjs.com) 
+## Basic Project Type Support
+- React alone (JS or Typescript)
+- React/redux (JS or Typescript)
+- React/simpler-redux (JS or Typescript)
+- React/causality-redux (JS or Typescript)
+- React Reason exportable components with an underlying React Project (Exports to JS or Typescript)
 
 (**Please note, create-react-cr-project is only compatible with node 8.1.3 or higher.**)
 
@@ -24,12 +15,23 @@ Everything else is done automatically for you such as mapStateToProps, mapDispat
 
 1. Go to a command window and create a directory for your project and change to that directory.
 2. ```npm init``` and hit enter through all the questions.
-3. ```npm install --s create-react-cr-project```
+3. ```npm install create-react-cr-project```
 4. Depending on your system, run ```node_modules\.bin\create-react-cr-project``` or ```node_modules/.bin/create-react-cr-project```.
 The installation will take a few minutes. Once npm install has been run for you, the project configuration UI will be displayed. This UI allows you to configure your project and also create react components. Select your project configuration options and save. Then you can also create react components.
 5. Open your project directory in Visual Studio Code.
-6. Make sure you have [vscode-chrome-debug](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) and [vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension installed
- 
+6. Make sure you have [vscode-chrome-debug](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) and [vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension installed.
+7. If you are using react reason the install the following vscode extension. [vscode-react-reason](https://reasonml.github.io/docs/en/global-installation.html#recommended-through-npm-yarn).
+8. 
+## Known Issues
+1. The react reason vscode extension is supposed to automatically transpile .re files after saving them. However, at times it does not especially with new files. So, for this case, pull up the task list and select `Run bsb` to manutally run the bucklescript transpiler. 
+2. The bucklescript transpiler does not currently produce source maps so you have to set breakpoints in the transp[iled code rather than the actual react reason source code.
+
+## Updating the IDE
+
+1. Go to a command window in your project directory.
+2. ```npm run updateide```
+
+[![js-standard-style](https://cdn.rawgit.com/standard/standard/master/badge.svg)](http://standardjs.com)  
 ## Extensive List Of Features
 * **Significantly less coding and debugging than with react alone or with react and redux.**
 * Intellisense (code completion) for external libraries via [Automatic Type Acquisition (ATA)](https://code.visualstudio.com/updates/v1_7) 
@@ -56,7 +58,7 @@ The installation will take a few minutes. Once npm install has been run for you,
 * Supports progressive web apps for production. You can opt out of this.
 * Supports material-ui react components.
 * Supports development and production proxies so that you can proxy REST requests to your production server or some stub server such as the json-server.
-* Add your own javacript code to the UI create component function to create your own custom components.
+* Add your own javacript code to the UI create component function to create the source code for your own custom components.
 
 ## Visual Studio Code
 
@@ -64,14 +66,15 @@ The installation will take a few minutes. Once npm install has been run for you,
 * [**Tips and Tricks**](https://github.com/Microsoft/vscode-tips-and-tricks)
 * [**Supercharge your JavaScript debugging workflow with Visual Studio Code (Build 2017)**](https://channel9.msdn.com/Events/Build/2017/T6071)
 
-### Required Extensions
+## Required Extensions
 To install extensions in vscode, click the extensions button to the very left. Then use the search box at the top to find the extension to install.
 
 * [**Debugger for Chrome**](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
 * [**Eslint**](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 * Tslint for Visual Studio Code (For typescript projects only)
+* If you are using react reason, [vscode-react-reason](https://reasonml.github.io/docs/en/global-installation.html#recommended-through-npm-yarn).
 
-### Recommended Extensions
+## Recommended Extensions
 
 * [ReactSnippets](https://marketplace.visualstudio.com/items?itemName=xabikos.ReactSnippets)
 * [vscode-npm](https://marketplace.visualstudio.com/items?itemName=fknop.vscode-npm)
@@ -123,8 +126,20 @@ All configuration settings are well documented in the UI configuration program. 
 MIT
 
 # Documentation
+### How to Generate the Source for Your Own Components From the IDE
+Under `devtools/componentplugins` create some directory. The name of that directory will appear in the create component list of the IDE. In that directory create index.js and have at least below for the contents.
+```javascript
+const buildComponent = config => {
+}
 
-### Defining a MVC Component
+// Must export buildComponent for any plugin.
+module.exports = buildComponent
+```
+The `config` parameter will contain information like `componentName` etc. Return true if the component does not exist otherwise, return false. Then of course, provide the js code to build the component in the appropriate directory.
+
+To see examples, all of the source for the components generated by the IDE are located in the directory `./node_modules/create-react-cr-project/lib/componentplugins`.
+
+### Creating a CRPCR MVC Component
 1. Open the project in vscode and then open the vscode task list. 
 2. Select the task 'Run Project Configuration'. You may also do it from the command line as npm run config.
 3. Click 'CREATE REACT COMPONENT' and the create react component form will be displayed. Type in the component name in the React component name field and select from the various options and then click 'CREATE COMPONENT' at the top right. Once the component is created click 'EXIT' at the top right and then click the 'EXIT' button at the home screen to properly perform exit cleanup.
@@ -161,6 +176,28 @@ export const uiServiceFunctions = {
   }
 }
 ```
+
+### Defining Your MVC Component's React UI
+Except for special cases, your react component should be a dumb react stateless functional component. So, CRPCR creates the scaffolding for such a component in component name/view.jsx. All of your state defined in the controller under defaultState and all of your UI service functions listed in the controller under uiServiceFunctions are automatically made available in the props so all you need to do is list the applicable keys that you require for UI presentation.
+
+As consistent with MVC, the view is only responsible for UI presentation and nothing more. Hence, you should not write any javascript in the react component except for the facilitation of UI presentation. So, there should be no state nor business code in the view file.
+
+The logic of MVC dictates a separatiom of concerns for UI features since it is assumed that the UI will change in the future and certainly the javascript world proves this to be true. So, if you restrict your view file to be pure UI presentation then any future UI changes only requires you to rewrite UI presentation code. If on the other hand you tangle up business code and/or state with the UI then UI changes in the future requires you to trash most of your code causing a complete program rewrite.
+
+All code in the view file is HMR compatable.  
+
+So, open the file component name/view.js. Below is an example of a MVC react UI component in its initial created state.
+```javascript
+import React from 'react'
+
+const Counter = (/* { sampleKey1, sampleFunction1 } */) =>
+  <div>
+    TODO: Define your component.
+  </div>
+
+export default Counter
+```
+
 ### Basics Operations Available to the Controller
 The generated MVC react component makes available the basic functions to manipulate the redux store partition associated with the component in the file index.js or index.ts. So, you can use the below in the controller to gain access to all of these functions. Note that each MVC component gets their own redux store partition separate from other components.
 ```javascript
@@ -225,27 +262,6 @@ export const uiServiceFunctions = {
     partitionState.data.push(e)
   }
 }
-```
-
-### Defining Your MVC Component's React UI
-Except for special cases, your react component should be a dumb react stateless functional component. So, CRPCR creates the scaffolding for such a component in component name/view.jsx. All of your state defined in the controller under defaultState and all of your UI service functions listed in the controller under uiServiceFunctions are automatically made available in the props so all you need to do is list the applicable keys that you require for UI presentation.
-
-As consistent with MVC, the view is only responsible for UI presentation and nothing more. Hence, you should not write any javascript in the react component except for the facilitation of UI presentation. So, there should be no state nor business code in the view file.
-
-The logic of MVC dictates a separatiom of concerns for UI features since it is assumed that the UI will change in the future and certainly the javascript world proves this to be true. So, if you restrict your view file to be pure UI presentation then any future UI changes only requires you to rewrite UI presentation code. If on the other hand you tangle up business code and/or state with the UI then UI changes in the future requires you to trash most of your code causing a complete program rewrite.
-
-All code in the view file is HMR compatable.  
-
-So, open the file component name/view.js. Below is an example of a MVC react UI component in its created state.
-```javascript
-import React from 'react'
-
-const Counter = (/* { sampleKey1, sampleFunction1 } */) =>
-  <div>
-    TODO: Define your component.
-  </div>
-
-export default Counter
 ```
 
 ### How to perform controller initialization that requires partitionState, getState or setState.
